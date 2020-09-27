@@ -14,6 +14,7 @@
 		CA59BE8D25124ACF000D16F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA59BE8C25124ACF000D16F3 /* Assets.xcassets */; };
 		CA59BE9025124ACF000D16F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA59BE8E25124ACF000D16F3 /* LaunchScreen.storyboard */; };
 		CA59BE9825124D7B000D16F3 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA59BE9725124D7B000D16F3 /* Item.swift */; };
+		CA90AD0D251FCCE30073CDDA /* ManageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA90AD0C251FCCE30073CDDA /* ManageItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		CA59BE8F25124ACF000D16F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CA59BE9125124ACF000D16F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA59BE9725124D7B000D16F3 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		CA90AD0C251FCCE30073CDDA /* ManageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				CA59BE8725124ACC000D16F3 /* ViewController.swift */,
 				CA59BE8925124ACC000D16F3 /* Main.storyboard */,
 				CA59BE9725124D7B000D16F3 /* Item.swift */,
+				CA90AD0C251FCCE30073CDDA /* ManageItem.swift */,
 				CA59BE8C25124ACF000D16F3 /* Assets.xcassets */,
 				CA59BE8E25124ACF000D16F3 /* LaunchScreen.storyboard */,
 				CA59BE9125124ACF000D16F3 /* Info.plist */,
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA90AD0D251FCCE30073CDDA /* ManageItem.swift in Sources */,
 				CA59BE9825124D7B000D16F3 /* Item.swift in Sources */,
 				CA59BE8825124ACC000D16F3 /* ViewController.swift in Sources */,
 				CA59BE8425124ACC000D16F3 /* AppDelegate.swift in Sources */,

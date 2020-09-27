@@ -9,87 +9,106 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
     @IBOutlet weak var textFieldProduto: UITextField!
     @IBOutlet weak var textFieldQuantidade: UITextField!
-    @IBOutlet var labelLista: UILabel!
-    var arrayProdutos = [Item]()
+    @IBOutlet weak var actionButtonSaveManagement: UIButton!
+    @IBOutlet weak var actionButtonClearManagement: UIButton!
+    @IBOutlet weak var actionButtonDeleteManagement: UIButton!
+    @IBOutlet weak var labelList: UILabel!
+    
+    var tempItem = ManageItem(arrayProducts: [])
     
     override func viewDidLoad() {
         super.viewDidLoad()
         textFieldProduto.delegate = self
         textFieldQuantidade.delegate = self
-        atualizarLabel()
+        textFieldQuantidade.isEnabled = false
+        actionButtonSaveManagement.isEnabled = false
+        actionButtonClearManagement.isEnabled = false
+        actionButtonDeleteManagement.isHidden = true
+        textFieldProduto.becomeFirstResponder()
+    }
+    
+    @IBAction func actionButtonSave(_ sender: UIButton) {
+        if actionButtonSaveManagement.currentTitle == "Alterar" {
+            if let product = textFieldProduto.text, let quantity = Int(textFieldQuantidade.text!) ?? 0 {
+                tempItem.setQuantity(product: product, quantity: quantity)
+                actionButtonSaveManagement.setTitle("Salvar", for: .normal)
+                clearFields()
+                updateLabel()
+            }
+        } else {
+            if let product = textFieldProduto.text, let quantity = Int(textFieldQuantidade.text!) ?? 0 {
+                tempItem.setAddItem(product: product, quantity: quantity)
+                clearFields()
+                updateLabel()
+            }
+        }
+    }
+    
+    
+    @IBAction func actionButtoClear(_ sender: UIButton) {
+        clearFields()
+        textFieldProduto.becomeFirstResponder()
+        actionButtonDeleteManagement.isHidden = true
+        actionButtonClearManagement.isEnabled = false
+        updateLabel()
+    }
+    
+
+    
+    @IBAction func actionButtoDelete(_ sender: UIButton) {
+        tempItem.deleteItem(product: textFieldProduto.text!)
+        clearFields()
+        updateLabel()
     }
 
-    @IBAction func actionButtonSalvar(_ sender: Any) {
-    }
     
-    @IBAction func actionButtonLimpar(_ sender: Any) {
-        limpaCampos()
-    }
-    
-    @IBAction func actionButtonExcluir(_ sender: Any) {
-    }
-    
-    func produtoExiste(item: Item) -> Bool{
-        for item in arrayProdutos {
-            if item.produto.lowercased() == textFieldProduto.text!.lowercased() {
-                textFieldQuantidade.text = String(item.quantidade)
-                // atualizar o nome do botão para Editar
-                return true
-            }
+    func updateLabel() {
+        var updateList: String = ""
+        for item in tempItem.arrayProdutcs {
+            updateList = "\(updateList)\(item.product) - \(item.quantity)\n"
         }
-        return false
+        labelList.text = updateList
     }
     
-    func criarProduto(itemProduto: Item){
-        if !produtoExiste(item: itemProduto) {
-            if let produto = textFieldQuantidade.text, let quantidade = textFieldQuantidade.text {
-                let itemNovo = Item(produto: produto, quantidade: Int(quantidade) ?? 0)
-                arrayProdutos.append(itemNovo)
-            }
-        }
-    }
-    
-    func excuirProduto(item: Item){
-        
-        // verificar o for
-        var count = 0
-        for item in arrayProdutos {
-            if item.produto.lowercased() == textFieldProduto.text!.lowercased() {
-                arrayProdutos.remove(at: count)
-            } else {
-                count+=1
-            }
-        }
-    }
-    
-    func alterarQuantidade(itemProduto: Item){
-
-        for item in arrayProdutos {
-            if item.produto.lowercased() == itemProduto.produto.lowercased() {
-                item.quantidade = Int(textFieldQuantidade.text!) ?? 0
-            }
-        }
-    }
-    
-    func atualizarLabel() {
-        var contuedoLabel: String = ""
-        for item in arrayProdutos{
-            contuedoLabel+=item.produto + "\n"
-        }
-        labelLista.text = contuedoLabel
-    }
-    
-    func limpaCampos() {
-        textFieldQuantidade.text = ""
+    func clearFields() {
         textFieldProduto.text = ""
+        textFieldQuantidade.text = ""
+        actionButtonSaveManagement.setTitle("Salvar", for: .normal)
+        actionButtonDeleteManagement.isHidden = true
+        actionButtonClearManagement.isEnabled = false
+        actionButtonSaveManagement.isEnabled = false
+        textFieldQuantidade.isEnabled = false
+        textFieldProduto.becomeFirstResponder()
     }
+    
     
 }
 
 extension ViewController: UITextFieldDelegate {
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == textFieldProduto {
+            if textField.text == nil || textField.text!.isEmpty  {
+                print("ALERT")
+                textFieldProduto.becomeFirstResponder()
+            } else {
+                actionButtonClearManagement.isEnabled = true
+                textFieldQuantidade.isEnabled = true
+                textFieldQuantidade.becomeFirstResponder()
+                if tempItem.itemExist(product: textFieldProduto.text!) {
+                    textFieldQuantidade.text = String(tempItem.getQuantity(product: textFieldProduto.text!))
+                    actionButtonSaveManagement.setTitle("Alterar", for: .normal)
+                    actionButtonSaveManagement.isEnabled = true
+                    actionButtonDeleteManagement.isHidden = false
+                } else {
+                    textFieldQuantidade.isEnabled = true
+                    actionButtonSaveManagement.isEnabled = true
+                }
+            }
+        }
+        return true
+    }
 }
-
 

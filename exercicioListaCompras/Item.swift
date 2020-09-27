@@ -9,11 +9,11 @@
 import Foundation
 
 class Item {
-    var produto: String
-    var quantidade: Int
+    var product: String
+    var quantity: Int
     
-    init(produto: String, quantidade: Int) {
-        self.produto = produto
-        self.quantidade = quantidade
+    init(product: String, quantity: Int) {
+        self.product = product
+        self.quantity = quantity
     }
 }
